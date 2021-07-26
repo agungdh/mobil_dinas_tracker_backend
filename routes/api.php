@@ -30,6 +30,7 @@ Route::post('/acquireToken', [MainController::class, 'acquireToken']);
 
 Route::middleware(['auth:sanctum', 'activeuser'])->group(function () {
     Route::post('/getTokenInfo', [MainController::class, 'getTokenInfo']);
+    Route::get('/logout', [MainController::class, 'logout']);
     
     Route::middleware('leveladmin')->group(function () {
         Route::apiResources([

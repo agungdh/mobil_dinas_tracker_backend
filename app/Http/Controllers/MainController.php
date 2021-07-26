@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(null, 401);
+    }
+
     public function getTokenInfo(Request $request)
     {
         $request->user()->tokens;

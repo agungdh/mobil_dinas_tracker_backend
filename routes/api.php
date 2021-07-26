@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SkpdController;
+use App\Http\Controllers\MobilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +28,19 @@ Route::get('/user2', function (Request $request) {
 
 Route::post('/acquireToken', [MainController::class, 'acquireToken']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'activeuser'])->group(function () {
     Route::post('/getTokenInfo', [MainController::class, 'getTokenInfo']);
-});
+    
+    Route::middleware('leveladmin')->group(function () {
+        Route::apiResources([
+            'skpd' => SkpdController::class,
+            'mobil' => MobilController::class,
+        ]);
+    });
 
-// Route::apiResources([
-//     'photos' => PhotoController::class,
-//     'posts' => PostController::class,
-// ]);
+    Route::middleware('levelskpd')->group(function () {
+        Route::apiResources([
+            
+        ]);
+    });
+});

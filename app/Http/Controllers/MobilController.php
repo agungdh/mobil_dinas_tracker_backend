@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Skpd;
+use App\Models\Mobil;
 
-class SkpdController extends Controller
+class MobilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class SkpdController extends Controller
      */
     public function index()
     {
-        return Skpd::all();
+        return Mobil::all();
     }
 
     /**

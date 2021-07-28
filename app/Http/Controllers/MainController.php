@@ -11,14 +11,14 @@ class MainController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(null, 401);
+        return response()->json(null, 200);
     }
 
     public function getTokenInfo(Request $request)
-    {
-        $request->user()->tokens;
-        
-        return $request->user();
+    {   
+        $user = $request->user();
+        $user->role = $user->skpd_id ? 'skpd' : 'admin'; 
+        return $user;
     }
     
     public function acquireToken(Request $request)
@@ -29,9 +29,11 @@ class MainController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $token = Auth::user()->createToken('frontend')->plainTextToken;
+            $user = Auth::user();
+            $user->role = $user->skpd_id ? 'skpd' : 'admin'; 
+            $token = $user->createToken('frontend')->plainTextToken;
             
-            return response()->json(compact('token'), 200);
+            return response()->json(compact('token', 'user'), 200);
         }
 
         return response()->json(null, 401);

@@ -19,8 +19,8 @@ class CreateMutasisTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->unsignedBigInteger('dari_skpd_id');
-            $table->foreign('dari_skpd_id')->nullable()->references('id')->on('skpds');
+            $table->unsignedBigInteger('dari_skpd_id')->nullable();
+            $table->foreign('dari_skpd_id')->references('id')->on('skpds');
 
             $table->unsignedBigInteger('ke_skpd_id');
             $table->foreign('ke_skpd_id')->references('id')->on('skpds');

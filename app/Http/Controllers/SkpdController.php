@@ -26,7 +26,13 @@ class SkpdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'skpd' => ['required'],
+        ]);
+
+        $skpd = new Skpd();
+        $skpd->skpd = $request->skpd;
+        $skpd->save();
     }
 
     /**
@@ -37,7 +43,7 @@ class SkpdController extends Controller
      */
     public function show($id)
     {
-        //
+        return Skpd::findOrFail($id);
     }
 
     /**
@@ -49,7 +55,14 @@ class SkpdController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $skpd = Skpd::findOrFail($id);
+
+        $request->validate([
+            'skpd' => ['required'],
+        ]);
+
+        $skpd->skpd = $request->skpd;
+        $skpd->save();
     }
 
     /**
@@ -60,6 +73,6 @@ class SkpdController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Skpd::findOrFail($id)->delete();
     }
 }
